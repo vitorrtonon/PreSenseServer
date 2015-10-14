@@ -139,7 +139,7 @@
 					<replacements>
 						<replacement>
 							<token>http://presense.herokuapp.com/axis2/services/PreSenseWS</token>
-							<value>/services/PreSenseWS</value>
+							<value>/http://presense.herokuapp.com/services/PreSenseWS</value>
 						</replacement>
 					</replacements>
 				</configuration>
