@@ -11,6 +11,7 @@
 
 	<properties>
     	<tomcat.version>7.0.57</tomcat.version>
+		<wsdl.location>http://presenseserver.herokuapp.com</wsdl.location>
   	</properties>
 
 	<dependencies>
@@ -88,6 +89,117 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+            	<executions>
+            		<execution>
+            			<phase>process-resources</phase>
+            			<goals>
+            				<goal>compile</goal>
+            			</goals>
+            		</execution>
+            	</executions>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.axis2</groupId>
+				<artifactId>axis2-java2wsdl-maven-plugin</artifactId>
+				<version>1.6.2</version>
+				<executions>
+					<execution>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>java2wsdl</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<className>topcom.presense.server.services.PreSenseWS</className>
+					<outputFileName>${project.basedir}/target/wsdl/PreSenseWS.wsdl</outputFileName>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.google.code.maven-replacer-plugin</groupId>
+				<artifactId>replacer</artifactId>
+				<version>1.5.3</version>
+				<executions>
+					<execution>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>replace</goal>
+						</goals>                   
+					</execution>
+				</executions>
+				<configuration>
+					<file>${project.basedir}/target/wsdl/PreSenseWS.wsdl</file>
+					<replacements>
+						<replacement>
+							<token>http://localhost:8080/axis2/services/PreSenseWS</token>
+							<value>${wsdl.location}/${project.build.finalName}/services/PreSenseWS</value>
+						</replacement>
+					</replacements>
+				</configuration>
+			</plugin>
+			<plugin>
+                <groupId>org.apache.axis2</groupId>
+                <artifactId>axis2-wsdl2code-maven-plugin</artifactId>
+                <version>1.6.2</version>
+                <executions>
+                    <execution>
+                    	<phase>process-resources</phase>
+                        <goals>
+                            <goal>wsdl2code</goal>
+                        </goals>
+                        <configuration>
+                            <packageName>webservices.example1.services</packageName>
+                            <wsdlFile>${project.basedir}/target/wsdl/PreSenseWS.wsdl</wsdlFile>
+                            <databindingName>xmlbeans</databindingName>
+                            <namespaceURIs>
+                            	<namespaceURI>
+                            		<uri>http://presense.services</uri>
+                            		<packageName>topcom.presense.server.services</packageName>
+                            	</namespaceURI>
+                        	</namespaceURIs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+            	<artifactId>maven-resources-plugin</artifactId>
+            	<version>2.6</version>
+            	<executions>
+            		<execution>
+            			<phase>process-resources</phase>
+            			<goals>
+            				<goal>copy-resources</goal>
+            			</goals>
+            			<configuration>
+            				<outputDirectory>${project.basedir}/target/classes</outputDirectory>
+            				<resources>          
+            					<resource>
+            						<directory>${project.basedir}/target/generated-sources/axis2/wsdl2code/resources</directory>
+            						<includes>
+            							<include>**/*</include>
+            						</includes>
+            					</resource>
+            				</resources>              
+            			</configuration>            
+            		</execution>
+            	</executions>
+            </plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+
 		</plugins>
 		<finalName>PreSense-Server</finalName>
 	</build>
