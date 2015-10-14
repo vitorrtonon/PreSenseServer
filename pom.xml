@@ -11,7 +11,7 @@
 
 	<properties>
     	<tomcat.version>7.0.57</tomcat.version>
-		<wsdl.location>http://presenseserver.herokuapp.com/</wsdl.location>
+		<wsdl.location>http://presenseserver.herokuapp.com</wsdl.location>
   	</properties>
 
 	<dependencies>
@@ -138,7 +138,7 @@
 					<file>${project.basedir}/target/wsdl/PreSenseWS.wsdl</file>
 					<replacements>
 						<replacement>
-							<token>htpp://localhost:8080/axis2/services/PreSenseWS</token>
+							<token>http://localhost:8080/axis2/services/PreSenseWS</token>
 							<value>${wsdl.location}/services/PreSenseWS</value>
 						</replacement>
 					</replacements>
