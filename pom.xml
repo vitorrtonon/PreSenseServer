@@ -138,8 +138,8 @@
 					<file>${project.basedir}/target/wsdl/PreSenseWS.wsdl</file>
 					<replacements>
 						<replacement>
-							<token>http://presense.herokuapp.com/axis2/services/PreSenseWS</token>
-							<value>http://presense.herokuapp.com/services/PreSenseWS</value>
+							<token>htpp://localhost:8080/axis2/services/PreSenseWS</token>
+							<value>${wsdl.location}/services/PreSenseWS</value>
 						</replacement>
 					</replacements>
 				</configuration>
