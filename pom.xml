@@ -11,7 +11,7 @@
 
 	<properties>
     	<tomcat.version>7.0.57</tomcat.version>
-		<wsdl.location>http://localhost:8080</wsdl.location>
+		<wsdl.location>https://presenseserver.herokuapp.com</wsdl.location>
   	</properties>
 
 	<dependencies>
