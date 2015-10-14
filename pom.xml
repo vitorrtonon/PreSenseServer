@@ -155,7 +155,7 @@
                             <goal>wsdl2code</goal>
                         </goals>
                         <configuration>
-                            <packageName>webservices.example1.services</packageName>
+                            <packageName>topcom.presense.server.services</packageName>
                             <wsdlFile>${project.basedir}/target/wsdl/PreSenseWS.wsdl</wsdlFile>
                             <databindingName>xmlbeans</databindingName>
                             <namespaceURIs>
